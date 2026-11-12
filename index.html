@@ -8,7 +8,7 @@
 <meta name="description" content="עוף בגריל רוטיסרי, אבן גבירול 141 פינת בזל, תל אביב. 03-691-1553">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Kaushan+Script&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
 <!--
   DÉMO – à faire valider par le client avant mise en ligne :
   - Prix : article Walla (août 2023), à confirmer.
@@ -18,13 +18,18 @@
 -->
 <style>
   :root {
-    --paper: #f5efe3;
-    --paper-2: #ebe2d0;
-    --ink: #221b16;
-    --soft: #5e544b;
+    /* Couleurs prises sur leur devanture et leur logo :
+       cadres noirs, murs beige, bois des tabourets, affiches rouges, poulet doré */
+    --paper: #f1e6d0;
+    --paper-2: #e6d5b4;
+    --ink: #161412;
+    --soft: #5a4d40;
     --red: #b8322a;
     --red-dark: #8f241e;
-    --rule: #cfc2aa;
+    --gold: #e0a43c;
+    --wood: #9a6a3c;
+    --rule: #cdb994;
+    --on-dark: #f1e6d0;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -48,26 +53,41 @@
   .strip a { text-decoration: none; font-weight: 600; }
   .lang { background: none; border: 0; color: inherit; font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
 
+  /* dark top block (header + hero) = their black storefront */
+  .top { background: var(--ink); color: var(--on-dark); }
+
   /* header */
-  header .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; border-bottom: 2px solid var(--ink); }
-  .name { font-family: "Suez One", Georgia, serif; font-size: 1.5rem; text-decoration: none; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 18px; border-bottom: 1px solid rgba(241,230,208,.2); }
+  .name { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
+  .name .script { font-family: "Kaushan Script", cursive; font-size: 1.7rem; color: var(--on-dark); }
+  .name small { font-size: .62rem; letter-spacing: .28em; color: var(--gold); font-weight: 800; margin-top: 4px; direction: ltr; }
   header nav { display: flex; gap: 22px; font-weight: 600; }
   header nav a { text-decoration: none; }
-  header nav a:hover { color: var(--red); }
+  header nav a:hover { color: var(--gold); }
   @media (max-width: 700px) { header nav { display: none; } }
 
   /* hero */
-  .hero { padding-block: 56px 48px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .hero { padding-block: 56px 60px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
   .hero h1 { font-size: clamp(2.6rem, 8vw, 4.6rem); }
-  .hero h1 .u { position: relative; white-space: nowrap; }
+  .hero h1 .u { position: relative; white-space: nowrap; color: var(--gold); }
   .hero h1 .u svg { position: absolute; inset-inline: 0; bottom: -.18em; width: 100%; height: .3em; }
-  .hero p { font-size: 1.25rem; color: var(--soft); max-width: 30ch; margin: 22px 0 28px; }
+  .hero p { font-size: 1.25rem; color: rgba(241,230,208,.82); max-width: 30ch; margin: 22px 0 28px; }
   .btns { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn { display: inline-block; padding: 13px 22px; font-weight: 800; text-decoration: none; border: 2px solid var(--ink); border-radius: 4px; }
   .btn.red { background: var(--red); border-color: var(--red); color: #fff; }
   .btn.red:hover { background: var(--red-dark); border-color: var(--red-dark); }
   .btn:not(.red):hover { background: var(--ink); color: var(--paper); }
-  .stamp { width: 190px; height: 190px; color: var(--red); transform: rotate(-8deg); }
+  .top .btn:not(.red) { border-color: var(--on-dark); }
+  .top .btn:not(.red):hover { background: var(--on-dark); color: var(--ink); }
+  .stamp { width: 190px; height: 190px; color: var(--gold); transform: rotate(-8deg); }
+
+  /* tile strip = their patterned floor */
+  .tiles { height: 22px; background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--ink) 0 3px, transparent 3.5px),
+      linear-gradient(45deg, transparent 46%, var(--wood) 46% 54%, transparent 54%),
+      linear-gradient(-45deg, transparent 46%, var(--wood) 46% 54%, transparent 54%);
+    background-size: 22px 22px; border-block: 2px solid var(--ink); }
   .stamp text { font: 800 12.5px "Assistant", sans-serif; letter-spacing: 2.5px; fill: currentColor; }
   @media (max-width: 700px) {
     .hero { grid-template-columns: 1fr; padding-block: 36px 40px; gap: 0; }
@@ -80,7 +100,10 @@
   h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
 
   /* menu board */
-  .menu { background: var(--paper-2); border-block: 2px solid var(--ink); }
+  .menu { background: var(--paper-2); border-bottom: 2px solid var(--ink); }
+  .menu .p { color: var(--red-dark); }
+  .menu h3 { color: var(--wood); border-bottom-color: var(--wood) !important; }
+  .item .dots { border-bottom-color: var(--wood) !important; opacity: .5; }
   .menu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 64px; margin-top: 32px; }
   .menu h3 { font-size: 1.3rem; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
   .item { display: flex; align-items: baseline; gap: 8px; padding-block: 8px; }
@@ -113,6 +136,12 @@
   .map iframe { display: block; width: 100%; height: 100%; min-height: 320px; border: 0; filter: grayscale(.4) sepia(.15); }
   @media (max-width: 760px) { .visit-grid { grid-template-columns: 1fr; } }
 
+  .visit { background: var(--ink); color: var(--on-dark); border-top: 0; }
+  .visit .label { color: var(--gold); }
+  .visit .btn:not(.red) { border-color: var(--on-dark); }
+  .visit .btn:not(.red):hover { background: var(--on-dark); color: var(--ink); }
+  .visit td { border-bottom: 1px dashed rgba(241,230,208,.25); }
+  .visit .map { border-color: var(--gold); }
   footer { padding-block: 28px 96px; font-size: .92rem; color: var(--soft); border-top: 1px solid var(--rule); }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
@@ -129,6 +158,7 @@
 <body>
 <a class="skip" href="#main"><span data-lang="he">דילוג לתוכן</span><span data-lang="en">Skip to content</span></a>
 
+<div class="top">
 <div class="strip">
   <div class="wrap">
     <span><span data-lang="he">אבן גבירול 141, פינת בזל</span><span data-lang="en">141 Ibn Gabirol, corner of Bazel</span> · <a href="tel:+97236911553">03-691-1553</a></span>
@@ -138,7 +168,7 @@
 
 <header>
   <div class="wrap">
-    <a class="name" href="#top"><span data-lang="he">דה גריל פרדייס</span><span data-lang="en">The Grill Paradise</span></a>
+    <a class="name" href="#main" aria-label="The Grill Paradise"><span class="script" lang="en">The Grill' Paradise</span><small>WELL MADE CHICKEN</small></a>
     <nav aria-label="ניווט">
       <a href="#menu"><span data-lang="he">תפריט</span><span data-lang="en">Menu</span></a>
       <a href="#about"><span data-lang="he">עלינו</span><span data-lang="en">About</span></a>
@@ -147,12 +177,11 @@
   </div>
 </header>
 
-<main id="main">
-  <div class="wrap hero" id="top">
+  <div class="wrap hero" id="main">
     <div>
       <h1>
-        <span data-lang="he">עוף בגריל<br><span class="u">כמו של פעם.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 50 4, 110 18, 197 7" fill="none" stroke="#b8322a" stroke-width="5" stroke-linecap="round"/></svg></span></span>
-        <span data-lang="en">Rotisserie chicken,<br><span class="u">like it used to be.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 50 4, 110 18, 197 7" fill="none" stroke="#b8322a" stroke-width="5" stroke-linecap="round"/></svg></span></span>
+        <span data-lang="he">עוף בגריל<br><span class="u">כמו של פעם.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 50 4, 110 18, 197 7" fill="none" stroke="#e0a43c" stroke-width="5" stroke-linecap="round"/></svg></span></span>
+        <span data-lang="en">Rotisserie chicken,<br><span class="u">like it used to be.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 50 4, 110 18, 197 7" fill="none" stroke="#e0a43c" stroke-width="5" stroke-linecap="round"/></svg></span></span>
       </h1>
       <p>
         <span data-lang="he">קריספי בחוץ, עסיסי בפנים. כל העופות נכנסים למרינדה מהערב, והרטבים נעשים אצלנו.</span>
@@ -172,7 +201,10 @@
       <text x="100" y="120" text-anchor="middle" style="letter-spacing: 1px; font-size: 11px">GOOGLE · 85</text>
     </svg>
   </div>
+</div>
+<div class="tiles" aria-hidden="true"></div>
 
+<main>
   <section class="menu" id="menu">
     <div class="wrap">
       <div class="label"><span data-lang="he">התפריט</span><span data-lang="en">MENU</span></div>
